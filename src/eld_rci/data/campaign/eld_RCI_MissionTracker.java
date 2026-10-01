@@ -47,6 +47,8 @@ public class eld_RCI_MissionTracker implements CampaignEventListener {
                         if (count >= getThreshold(person)) {
                             person.setImportance(importance.next());
                             count = 0;
+
+                            Global.getSector().getIntelManager().queueIntel(new eld_RCI_UpImportanceIntel(person));
                         }
 
                         person.getMemoryWithoutUpdate().set(MISSION_COUNTER, count);
