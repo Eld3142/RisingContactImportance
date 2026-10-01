@@ -1,0 +1,6 @@
+fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
+eld_RCI_Threshold_HIGH,High to Very High Threshold,Int,10,,The successful missions amount required to increase contact's importance from High to Very High.,1,100,Threshold
+eld_RCI_Threshold_MEDIUM,Medium to High Threshold,Int,5,,The successful missions amount required to increase contact's importance from Medium to High.,1,100,Threshold
+eld_RCI_Threshold_LOW,Low to Medium Threshold,Int,3,,The successful missions amount required to increase contact's importance from Low to Medium.,1,100,Threshold
+eld_RCI_Threshold_VERY_LOW,Very Low to Low Threshold,Int,2,,The successful missions amount required to increase contact's importance from Very Low to Low.,1,100,Threshold
+,,,,,,,,
