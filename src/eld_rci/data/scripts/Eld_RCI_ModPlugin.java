@@ -19,7 +19,7 @@ public class Eld_RCI_ModPlugin extends BaseModPlugin {
         if (Global.getSettings().getModManager().isModEnabled("lunalib")) {
             LunaSettings.addSettingsListener(new eld_RCI_LunaListener());
         }
-        eld_RCI_Threshold.threshold();
+        eld_RCI_Threshold.getSettings();
 
     }
 

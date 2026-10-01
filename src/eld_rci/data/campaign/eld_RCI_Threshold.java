@@ -10,7 +10,14 @@ public class eld_RCI_Threshold {
     public static int THRESHOLD_LOW = 3;
     public static int THRESHOLD_VERY_LOW = 2;
 
-    public static void threshold()
+    public static boolean MARKET_SIZE_REQ = false;
+    public static int MARKET_SIZE_REQ_VERY_HIGH = 6;
+    public static int MARKET_SIZE_REQ_HIGH = 4;
+
+    public static boolean COOLDOWN = true;
+    public static int COOLDOWN_DAYS = 30;
+
+    public static void getSettings()
     {
         if (Global.getSettings().getModManager().isModEnabled("lunalib"))
         {
@@ -18,6 +25,13 @@ public class eld_RCI_Threshold {
             THRESHOLD_MEDIUM   = LunaSettings.getInt("eld_rci", "eld_RCI_Threshold_MEDIUM");
             THRESHOLD_LOW      = LunaSettings.getInt("eld_rci", "eld_RCI_Threshold_LOW");
             THRESHOLD_VERY_LOW = LunaSettings.getInt("eld_rci", "eld_RCI_Threshold_VERY_LOW");
+
+            MARKET_SIZE_REQ           = LunaSettings.getBoolean("eld_rci", "eld_RCI_MarketSizeReq");
+            MARKET_SIZE_REQ_VERY_HIGH = LunaSettings.getInt("eld_rci", "eld_RCI_MarketSizeReq_VERY_HIGH");
+            MARKET_SIZE_REQ_HIGH      = LunaSettings.getInt("eld_rci", "eld_RCI_MarketSizeReq_HIGH");
+
+            COOLDOWN      = LunaSettings.getBoolean("eld_rci", "eld_RCI_Cooldown");
+            COOLDOWN_DAYS = LunaSettings.getInt("eld_rci", "eld_RCI_Cooldown_Days");
         }
     }
 

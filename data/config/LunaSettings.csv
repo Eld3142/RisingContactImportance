@@ -1,6 +1,16 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
-eld_RCI_Threshold_HIGH,High to Very High Threshold,Int,10,,The successful missions amount required to increase contact's importance from High to Very High.,1,100,Threshold
-eld_RCI_Threshold_MEDIUM,Medium to High Threshold,Int,5,,The successful missions amount required to increase contact's importance from Medium to High.,1,100,Threshold
-eld_RCI_Threshold_LOW,Low to Medium Threshold,Int,3,,The successful missions amount required to increase contact's importance from Low to Medium.,1,100,Threshold
-eld_RCI_Threshold_VERY_LOW,Very Low to Low Threshold,Int,2,,The successful missions amount required to increase contact's importance from Very Low to Low.,1,100,Threshold
+eld_RCI_Threshold_Header,Threshold,Header,Threshold,,,,,General
+eld_RCI_Threshold_HIGH,High to Very High Threshold,Int,10,,The successful missions amount required to increase contact's importance from High to Very High.,1,100,General
+eld_RCI_Threshold_MEDIUM,Medium to High Threshold,Int,5,,The successful missions amount required to increase contact's importance from Medium to High.,1,100,General
+eld_RCI_Threshold_LOW,Low to Medium Threshold,Int,3,,The successful missions amount required to increase contact's importance from Low to Medium.,1,100,General
+eld_RCI_Threshold_VERY_LOW,Very Low to Low Threshold,Int,2,,The successful missions amount required to increase contact's importance from Very Low to Low.,1,100,General
+,,,,,,,,
+eld_RCI_MarketSizeReq_Header,Market Size Requirement,Header,Market Size,,,,,General
+eld_RCI_MarketSizeReq,Enable Market Size Requirement,Boolean,False,,Enable market size requirement for Very High and High importance. Doesn't affect anyone that already has those importance even with low market size (like Alviss).,,,General
+eld_RCI_MarketSizeReq_VERY_HIGH,Very High Requirement,Int,6,,Market size requirement for a contact to be able to rise to Very High importance.,1,10,General
+eld_RCI_MarketSizeReq_HIGH,High Requirement,Int,4,,Market size requirement for a contact to be able to rise to High importance.,1,10,General
+,,,,,,,,
+eld_RCI_Threshold_Header,Cooldown,Header,Cooldown,,,,,General
+eld_RCI_Cooldown,Enable Cooldown,Boolean,True,,Enable cooldown after a contact's importance has risen before missions from that same contact would count towards the next threshold.,,,General
+eld_RCI_Cooldown_Days,Cooldown Days,Int,30,,Length of cooldown in days.,1,365,General
 ,,,,,,,,

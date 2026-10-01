@@ -18,7 +18,8 @@ import static eld_rci.data.campaign.eld_RCI_Threshold.*;
 
 public class eld_RCI_MissionTracker implements CampaignEventListener {
 
-    private static final String MISSION_COUNTER = "$eld_rci_missionCount";
+    private static final String MISSION_COUNTER  = "$eld_rci_missionCount";
+    private static final String MISSION_COOLDOWN = "$eld_rci_missionCooldown";
 
     private final Set<BaseHubMission> track_mission = new HashSet<>();
 
@@ -38,17 +39,28 @@ public class eld_RCI_MissionTracker implements CampaignEventListener {
                 PersonAPI person = mission.getPerson();
 
                 if (person != null) {
+                    Long cooldown_End = person.getMemoryWithoutUpdate().getLong(MISSION_COOLDOWN);
+                    if (cooldown_End != null && Global.getSector().getClock().getTimestamp() < cooldown_End) {
+                        track_mission.add(mission);
+                        continue;
+                    }
+
                     PersonImportance importance = person.getImportance();
 
                     if (importance != null && importance != PersonImportance.VERY_HIGH) {
                         int count = person.getMemoryWithoutUpdate().getInt(MISSION_COUNTER);
                         count++;
 
-                        if (count >= getThreshold(person)) {
+                        if (count >= getThreshold(person) &&
+                                person.getMarket().getSize() >= getMarketSizeReq(person)) {
                             person.setImportance(importance.next());
                             count = 0;
 
                             Global.getSector().getIntelManager().queueIntel(new eld_RCI_UpImportanceIntel(person));
+
+                            long cooldown_end = Global.getSector().getClock().getTimestamp() +
+                                    (long) (COOLDOWN_DAYS * Global.getSector().getClock().getSecondsPerDay());
+                            person.getMemoryWithoutUpdate().set(MISSION_COOLDOWN, cooldown_end);
                         }
 
                         person.getMemoryWithoutUpdate().set(MISSION_COUNTER, count);
@@ -71,6 +83,16 @@ public class eld_RCI_MissionTracker implements CampaignEventListener {
         } else {
             return Integer.MAX_VALUE;
         }
+    }
+
+    private int getMarketSizeReq(PersonAPI person) {
+        if (!MARKET_SIZE_REQ) {
+            return 0;
+        } else if (person.getImportance() == PersonImportance.HIGH) {
+            return MARKET_SIZE_REQ_VERY_HIGH;
+        } else if (person.getImportance() == PersonImportance.MEDIUM) {
+            return MARKET_SIZE_REQ_HIGH;
+        } else return 0;
     }
 
     public void clear() {
