@@ -12,5 +12,5 @@ eld_RCI_MarketSizeReq_HIGH,High Requirement,Int,4,,Market size requirement for a
 ,,,,,,,,
 eld_RCI_Threshold_Header,Cooldown,Header,Cooldown,,,,,General
 eld_RCI_Cooldown,Enable Cooldown,Boolean,True,,Enable cooldown after a contact's importance has risen before missions from that same contact would count towards the next threshold.,,,General
-eld_RCI_Cooldown_Days,Cooldown Days,Int,30,,Length of cooldown in days.,1,365,General
+eld_RCI_Cooldown_Days,Cooldown Days,Int,180,,Length of cooldown in days.,1,1800,General
 ,,,,,,,,
