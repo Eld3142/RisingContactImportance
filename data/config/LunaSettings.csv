@@ -10,7 +10,14 @@ eld_RCI_MarketSizeReq,Enable Market Size Requirement,Boolean,False,,Enable marke
 eld_RCI_MarketSizeReq_VERY_HIGH,Very High Requirement,Int,6,,Market size requirement for a contact to be able to rise to Very High importance.,1,10,General
 eld_RCI_MarketSizeReq_HIGH,High Requirement,Int,4,,Market size requirement for a contact to be able to rise to High importance.,1,10,General
 ,,,,,,,,
-eld_RCI_Threshold_Header,Cooldown,Header,Cooldown,,,,,General
+eld_RCI_Cooldown_Header,Cooldown,Header,Cooldown,,,,,General
 eld_RCI_Cooldown,Enable Cooldown,Boolean,True,,Enable cooldown after a contact's importance has risen before missions from that same contact would count towards the next threshold.,,,General
 eld_RCI_Cooldown_Days,Cooldown Days,Int,180,,Length of cooldown in days.,1,1800,General
+,,,,,,,,
+eld_RCI_MinCredits_Header,Threshold,Header,Minimum Credits,,,,,General
+eld_RCI_MinCredits,Enable Minimum Credits,Boolean,True,,Enable minimum credits gained from missions requirement before the mission will be counted to progress contact's importance.,,,General
+eld_RCI_MinCredits_HIGH,High to Very High Minimum Credits,Int,300000,,The minimal amount of credits reward from missions that will be counted to progress contact's importance from High to Very High.,1,5000000,General
+eld_RCI_MinCredits_MEDIUM,Medium to High Minimum Credits,Int,100000,,The minimal amount of credits reward from missions that will be counted to progress contact's importance from Medium to High.,1,5000000,General
+eld_RCI_MinCredits_LOW,Low to Medium Minimum Credits,Int,50000,,The minimal amount of credits reward from missions that will be counted to progress contact's importance from Low to Medium.,1,5000000,General
+eld_RCI_MinCredits_VERY_LOW,Very Low to Low Minimum Credits,Int,20000,,The minimal amount of credits reward from missions that will be counted to progress contact's importance from Very Low to Low.,1,5000000,General
 ,,,,,,,,

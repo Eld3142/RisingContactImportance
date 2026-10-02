@@ -1,6 +1,6 @@
 package eld_rci.data.scripts;
 
-import eld_rci.data.campaign.eld_RCI_Threshold;
+import eld_rci.data.campaign.eld_RCI_Settings;
 import lunalib.lunaSettings.LunaSettings;
 import lunalib.lunaSettings.LunaSettingsListener;
 
@@ -18,6 +18,12 @@ public class eld_RCI_LunaListener implements LunaSettingsListener {
     boolean cooldown  = LunaSettings.getBoolean("eld_rci", "eld_RCI_Cooldown");
     int cooldown_days = LunaSettings.getInt("eld_rci", "eld_RCI_Cooldown_Days");
 
+    boolean mincredits      = LunaSettings.getBoolean("eld_rci", "eld_RCI_MinCredits");
+    int mincredits_High     = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_HIGH");
+    int mincredits_Medium   = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_MEDIUM");
+    int mincredits_Low      = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_LOW");
+    int mincredits_Very_Low = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_VERY_LOW");
+
     //Gets called whenever settings are saved in the campaign or the main menu.
     @Override
     public void settingsChanged(String modID) {
@@ -33,7 +39,13 @@ public class eld_RCI_LunaListener implements LunaSettingsListener {
         cooldown      = LunaSettings.getBoolean("eld_rci", "eld_RCI_Cooldown");
         cooldown_days = LunaSettings.getInt("eld_rci", "eld_RCI_Cooldown_Days");
 
-        eld_RCI_Threshold.getSettings();
+        mincredits          = LunaSettings.getBoolean("eld_rci", "eld_RCI_MinCredits");
+        mincredits_High     = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_HIGH");
+        mincredits_Medium   = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_MEDIUM");
+        mincredits_Low      = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_LOW");
+        mincredits_Very_Low = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_VERY_LOW");
+
+        eld_RCI_Settings.getSettings();
     }
 
 }
