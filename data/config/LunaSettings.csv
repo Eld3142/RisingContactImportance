@@ -14,10 +14,15 @@ eld_RCI_Cooldown_Header,Cooldown,Header,Cooldown,,,,,General
 eld_RCI_Cooldown,Enable Cooldown,Boolean,True,,Enable cooldown after a contact's importance has risen before missions from that same contact would count towards the next threshold.,,,General
 eld_RCI_Cooldown_Days,Cooldown Days,Int,180,,Length of cooldown in days.,1,1800,General
 ,,,,,,,,
-eld_RCI_MinCredits_Header,Threshold,Header,Minimum Credits,,,,,General
+eld_RCI_MinCredits_Header,Minimum Credits,Header,Minimum Credits,,,,,General
 eld_RCI_MinCredits,Enable Minimum Credits,Boolean,True,,Enable minimum credits gained from missions requirement before the mission will be counted to progress contact's importance.,,,General
-eld_RCI_MinCredits_HIGH,High to Very High Minimum Credits,Int,300000,,The minimal amount of credits reward from missions that will be counted to progress contact's importance from High to Very High.,1,5000000,General
-eld_RCI_MinCredits_MEDIUM,Medium to High Minimum Credits,Int,100000,,The minimal amount of credits reward from missions that will be counted to progress contact's importance from Medium to High.,1,5000000,General
-eld_RCI_MinCredits_LOW,Low to Medium Minimum Credits,Int,50000,,The minimal amount of credits reward from missions that will be counted to progress contact's importance from Low to Medium.,1,5000000,General
-eld_RCI_MinCredits_VERY_LOW,Very Low to Low Minimum Credits,Int,20000,,The minimal amount of credits reward from missions that will be counted to progress contact's importance from Very Low to Low.,1,5000000,General
+eld_RCI_MinCredits_VERY_HIGH,Minimum Credits for Favor,Int,500000,,The minimal amount of credits reward from missions that will be counted to increase a Very High contact's favor.,0,5000000,General
+eld_RCI_MinCredits_HIGH,High to Very High Minimum Credits,Int,300000,,The minimal amount of credits reward from missions that will be counted to progress contact's importance from High to Very High.,0,5000000,General
+eld_RCI_MinCredits_MEDIUM,Medium to High Minimum Credits,Int,100000,,The minimal amount of credits reward from missions that will be counted to progress contact's importance from Medium to High.,0,5000000,General
+eld_RCI_MinCredits_LOW,Low to Medium Minimum Credits,Int,50000,,The minimal amount of credits reward from missions that will be counted to progress contact's importance from Low to Medium.,0,5000000,General
+eld_RCI_MinCredits_VERY_LOW,Very Low to Low Minimum Credits,Int,20000,,The minimal amount of credits reward from missions that will be counted to progress contact's importance from Very Low to Low.,0,5000000,General
+,,,,,,,,
+eld_RCI_Favor_Header,Favor,Header,Favor,,,,,General
+eld_RCI_Favor,Enable Favor System,Boolean,True,,Enable favor system for contact with very high importance. This system allows player to ask contact to arrange missions outside their normal limit.,,,General
+eld_RCI_Favor_Cost,Favor Cost for Each Arrangement,Int,2,,Favor cost needed for a Very High importance contact to arrange a mission for the player.,0,10,General
 ,,,,,,,,

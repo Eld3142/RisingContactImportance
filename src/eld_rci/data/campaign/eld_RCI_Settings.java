@@ -17,11 +17,15 @@ public class eld_RCI_Settings {
     public static boolean COOLDOWN = true;
     public static int COOLDOWN_DAYS = 180;
 
-    public static boolean MIN_CREDITS      = true;
-    public static int MIN_CREDITS_HIGH     = 300000;
-    public static int MIN_CREDITS_MEDIUM   = 100000;
-    public static int MIN_CREDITS_LOW      = 50000;
-    public static int MIN_CREDITS_VERY_LOW = 20000;
+    public static boolean MIN_CREDITS       = true;
+    public static int MIN_CREDITS_VERY_HIGH = 500000;
+    public static int MIN_CREDITS_HIGH      = 300000;
+    public static int MIN_CREDITS_MEDIUM    = 100000;
+    public static int MIN_CREDITS_LOW       = 50000;
+    public static int MIN_CREDITS_VERY_LOW  = 20000;
+
+    public static boolean FAVOR  = true;
+    public static int FAVOR_COST = 2;
 
     public static void getSettings()
     {
@@ -39,11 +43,15 @@ public class eld_RCI_Settings {
             COOLDOWN      = LunaSettings.getBoolean("eld_rci", "eld_RCI_Cooldown");
             COOLDOWN_DAYS = LunaSettings.getInt("eld_rci", "eld_RCI_Cooldown_Days");
 
-            MIN_CREDITS          = LunaSettings.getBoolean("eld_rci", "eld_RCI_MinCredits");
-            MIN_CREDITS_HIGH     = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_HIGH");
-            MIN_CREDITS_MEDIUM   = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_MEDIUM");
-            MIN_CREDITS_LOW      = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_LOW");
-            MIN_CREDITS_VERY_LOW = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_VERY_LOW");
+            MIN_CREDITS           = LunaSettings.getBoolean("eld_rci", "eld_RCI_MinCredits");
+            MIN_CREDITS_VERY_HIGH = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_VERY_HIGH");
+            MIN_CREDITS_HIGH      = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_HIGH");
+            MIN_CREDITS_MEDIUM    = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_MEDIUM");
+            MIN_CREDITS_LOW       = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_LOW");
+            MIN_CREDITS_VERY_LOW  = LunaSettings.getInt("eld_rci", "eld_RCI_MinCredits_VERY_LOW");
+
+            FAVOR      = LunaSettings.getBoolean("eld_rci", "eld_RCI_Favor");
+            FAVOR_COST = LunaSettings.getInt("eld_rci", "eld_RCI_Favor_Cost");
         }
     }
 

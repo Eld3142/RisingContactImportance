@@ -11,6 +11,8 @@ import eld_rci.data.campaign.eld_RCI_Settings;
 import eld_rci.data.campaign.eld_RCI_UpImportanceIntel;
 import lunalib.lunaSettings.LunaSettings;
 
+import static eld_rci.data.scripts.eld_RCI_CleanUp.cleanMissionRefs;
+
 public class Eld_RCI_ModPlugin extends BaseModPlugin {
 
 //    private eld_RCI_MissionTracker_EFS eld_rci_tracker;
@@ -50,6 +52,7 @@ public class Eld_RCI_ModPlugin extends BaseModPlugin {
 
 //        Use CampaignEventListener (unstable)
         Global.getSector().addListener(new eld_RCI_MissionTracker());
+        Global.getSector().getMemoryWithoutUpdate().set("$eld_RCI_favorEnabled", eld_RCI_Settings.FAVOR);
 
         IntelManagerAPI intel = Global.getSector().getIntelManager();
         for (IntelInfoPlugin intelPlugin : intel.getIntel(ContactIntel.class)) {
@@ -60,6 +63,8 @@ public class Eld_RCI_ModPlugin extends BaseModPlugin {
                     && state != ContactIntel.ContactState.PRIORITY) continue;
             PersonAPI person = contact.getPerson();
             if (person == null) continue;
+
+            cleanMissionRefs(person);
 
             boolean exists = false;
             for (IntelInfoPlugin old : intel.getIntel(eld_RCI_UpImportanceIntel.class)) {

@@ -82,7 +82,7 @@ public class eld_RCI_MissionTracker implements CampaignEventListener {
 
                     PersonImportance importance = person.getImportance();
 
-                    if (importance != null && importance != PersonImportance.VERY_HIGH &&
+                    if (importance != null &&
                             reward >= getMinCredits(person)) {
                         int count = person.getMemoryWithoutUpdate().getInt(MISSION_COUNTER);
                         debugLog("Before increment: " + person.getNameString() +
@@ -94,7 +94,8 @@ public class eld_RCI_MissionTracker implements CampaignEventListener {
                         count++;
 
                         int marketSize = person.getMarket() != null ? person.getMarket().getSize() : 0; // If somehow there is a market-less person
-                        if (count >= getThreshold(person) && marketSize >= getMarketSizeReq(person)) {
+                        if (count >= getThreshold(person) && marketSize >= getMarketSizeReq(person)
+                                && importance != PersonImportance.VERY_HIGH) {
                             person.setImportance(importance.next());
                             count = 0;
 
@@ -117,7 +118,7 @@ public class eld_RCI_MissionTracker implements CampaignEventListener {
                                 person.getMemoryWithoutUpdate().set(MISSION_COOLDOWN, cooldown_end);
                             }
                         } else {
-                            debugLog("Requirement not met: " + person.getNameString() +
+                            debugLog("Cannot increase importance: " + person.getNameString() +
                                     " | count = " + count +
                                     " | threshold = " + getThreshold(person) +
                                     " | marketSize = " + marketSize +
@@ -188,6 +189,8 @@ public class eld_RCI_MissionTracker implements CampaignEventListener {
         PersonImportance importance = person.getImportance();
         if (!MIN_CREDITS) {
             return 0;
+        } else if (importance == PersonImportance.VERY_HIGH) {
+            return MIN_CREDITS_VERY_HIGH;
         } else if (importance == PersonImportance.HIGH) {
             return MIN_CREDITS_HIGH;
         } else if (importance == PersonImportance.MEDIUM) {

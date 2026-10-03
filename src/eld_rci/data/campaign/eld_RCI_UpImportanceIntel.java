@@ -12,8 +12,10 @@ import com.fs.starfarer.api.util.Misc;
 import java.awt.*;
 import java.util.Set;
 
+import static eld_rci.data.campaign.eld_RCI_MissionTracker.getMinCredits;
 import static eld_rci.data.campaign.eld_RCI_MissionTracker.getThreshold;
 import static eld_rci.data.campaign.eld_RCI_Settings.COOLDOWN;
+import static eld_rci.data.campaign.eld_RCI_Settings.MIN_CREDITS;
 
 public class eld_RCI_UpImportanceIntel extends BaseIntelPlugin {
 
@@ -43,6 +45,13 @@ public class eld_RCI_UpImportanceIntel extends BaseIntelPlugin {
         Color tc = Misc.getTextColor();
         float opad = 10f;
 
+        if (person.getFaction() != null) {
+            info.addImages(width, 128f, opad, opad,
+                    person.getPortraitSprite(), person.getFaction().getCrest());
+        } else {
+            info.addImage(person.getPortraitSprite(), width, 128f, opad);
+        }
+
         info.addPara(person.getNameString() + "'s importance is currently " +
                 person.getImportance().getDisplayName() + ".", opad);
 
@@ -52,7 +61,8 @@ public class eld_RCI_UpImportanceIntel extends BaseIntelPlugin {
 
         int currentCount = person.getMemoryWithoutUpdate().getInt("$eld_rci_missionCount");
         if (person.getImportance() == PersonImportance.VERY_HIGH) {
-            info.addPara("Maximum importance reached", opad, Misc.getHighlightColor());
+            info.addPara("Maximum importance reached, current favor: " + currentCount,
+                    opad, Misc.getHighlightColor(), String.valueOf(currentCount));
         } else {
             info.addPara("Missions completed to next increase: " + currentCount +
                     " / " + getThreshold(person), opad, Misc.getHighlightColor(), String.valueOf(currentCount));
@@ -72,6 +82,13 @@ public class eld_RCI_UpImportanceIntel extends BaseIntelPlugin {
                 info.addPara("Cooldown inactive: missions will count toward the next importance increase.",
                         opad, Misc.getPositiveHighlightColor());
             }
+        }
+
+        if (MIN_CREDITS) {
+            int credits = getMinCredits(person);
+
+            info.addPara("Mission reward required to progress: " + credits +
+                    " Credits.", opad, Misc.getHighlightColor(), String.valueOf(credits));
         }
     }
 
