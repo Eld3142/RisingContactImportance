@@ -26,3 +26,12 @@ eld_RCI_Favor_Header,Favor,Header,Favor,,,,,General
 eld_RCI_Favor,Enable Favor System,Boolean,True,,Enable favor system for contact with very high importance. This system allows player to ask contact to arrange missions outside their normal limit.,,,General
 eld_RCI_Favor_Cost,Favor Cost for Each Arrangement,Int,2,,Favor cost needed for a Very High importance contact to arrange a mission for the player.,0,10,General
 ,,,,,,,,
+eld_RCI_Blacklist_Header,Blacklist,Header,Blacklist,,,,,Blacklist & Removal
+eld_RCI_Blacklist,Contact Blacklist,String,sebestyen,,"List of contacts that will be blacklisted from this mod's feature (importance increase, favor, etc). Use person ID if possible, display name also works but less stable. Separate each person by comma. 
+Example: sebestyen, arroyo",,,Blacklist & Removal
+,,,,,,,,
+eld_RCI_Removal_Header,Removal,Header,Removal,,,,,Blacklist & Removal
+eld_RCI_Removal,Remove This Mod Safely,Boolean,False,,"You must load the save first -> Open LunaSettings (usually F3) -> Set this to True (if already True, set to False first then True again) then save the setting -> Save your game and Quit -> Remove this mod -> You can load that save again without this mod enabled. 
+
+Do this before removing this mod mid-save. Will clean up everything by this mod, so don't expect it to work properly even if you set it to false again in the same save.",,,Blacklist & Removal
+,,,,,,,,

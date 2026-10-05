@@ -2,6 +2,7 @@ id,trigger,conditions,script,text,options,notes
 eld_RCI_SpendFavor,PopulateOptions,"$isPerson
 $isContact
 $importance == VERY_HIGH
-$global.eld_RCI_favorEnabled",,,"5:eld_RCI_SpendFavor:""Can you arrange a mission for me? I can call in my favor.""",
+$global.eld_RCI_favorEnabled
+!$eld_RCI_Blacklisted",,,"5:eld_RCI_SpendFavor:""Can you arrange a mission for me? I can call in my favor.""",
 eld_RCI_SpendFavorScripts,DialogOptionSelected,$option == eld_RCI_SpendFavor,eld_RCI_SpendFavorDialog,,,
 ,,,,,,

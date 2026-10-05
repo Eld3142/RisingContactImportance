@@ -11,6 +11,7 @@ import com.fs.starfarer.api.combat.EngagementResultAPI;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import com.fs.starfarer.api.impl.campaign.missions.hub.BaseHubMission;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +35,7 @@ public class eld_RCI_MissionTracker implements CampaignEventListener {
     @Override
     public void reportShownInteractionDialog(InteractionDialogAPI dialog) {
         IntelManagerAPI intel = Global.getSector().getIntelManager();
-        List<IntelInfoPlugin> missions = intel.getIntel(BaseHubMission.class);
+        List<IntelInfoPlugin> missions = new ArrayList<IntelInfoPlugin>(intel.getIntel(BaseHubMission.class));
 
         track_mission.retainAll(missions);
 
@@ -56,6 +57,12 @@ public class eld_RCI_MissionTracker implements CampaignEventListener {
                 PersonAPI person = mission.getPerson();
 
                 if (person != null  && result.success) {
+                    syncBlacklistKey(person);
+                    if (isBlacklisted(person)) {
+                        track_mission.add(mission);
+                        continue;
+                    }
+
                     if (COOLDOWN) {
                         long now = Global.getSector().getClock().getTimestamp();
                         long cooldown_End = person.getMemoryWithoutUpdate().getLong(MISSION_COOLDOWN);
@@ -104,7 +111,8 @@ public class eld_RCI_MissionTracker implements CampaignEventListener {
                                     " | count reset to 0");
 
                             IntelManagerAPI intelManager = Global.getSector().getIntelManager();
-                            for (IntelInfoPlugin old : intelManager.getIntel(eld_RCI_UpImportanceIntel.class)) {
+                            for (IntelInfoPlugin old : new ArrayList<IntelInfoPlugin>(
+                                    intelManager.getIntel(eld_RCI_UpImportanceIntel.class))) {
                                 if (old instanceof eld_RCI_UpImportanceIntel
                                         && ((eld_RCI_UpImportanceIntel) old).getPerson() == person) {
                                     intelManager.removeIntel(old);
@@ -138,7 +146,7 @@ public class eld_RCI_MissionTracker implements CampaignEventListener {
             }
         }
 
-        for (IntelInfoPlugin intelPlugin : intel.getIntel(ContactIntel.class)) {
+        for (IntelInfoPlugin intelPlugin : new ArrayList<IntelInfoPlugin>(intel.getIntel(ContactIntel.class))) {
             ContactIntel contact = (ContactIntel) intelPlugin;
             ContactIntel.ContactState state = contact.getState();
 
@@ -146,6 +154,11 @@ public class eld_RCI_MissionTracker implements CampaignEventListener {
                     && state != ContactIntel.ContactState.PRIORITY) continue;
             PersonAPI person = contact.getPerson();
             if (person == null) continue;
+
+            syncBlacklistKey(person);
+            if (isBlacklisted(person)) {
+                continue;
+            }
 
             boolean exists = false;
             for (IntelInfoPlugin old : intel.getIntel(eld_RCI_UpImportanceIntel.class)) {

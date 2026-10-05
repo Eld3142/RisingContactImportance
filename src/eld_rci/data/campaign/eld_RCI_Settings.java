@@ -1,7 +1,11 @@
 package eld_rci.data.campaign;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.characters.PersonAPI;
 import lunalib.lunaSettings.LunaSettings;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class eld_RCI_Settings {
 
@@ -52,6 +56,42 @@ public class eld_RCI_Settings {
 
             FAVOR      = LunaSettings.getBoolean("eld_rci", "eld_RCI_Favor");
             FAVOR_COST = LunaSettings.getInt("eld_rci", "eld_RCI_Favor_Cost");
+
+
+            CONTACT_BLACKLIST = parseBlacklist(LunaSettings.getString("eld_rci", "eld_RCI_Blacklist"));
+        }
+    }
+
+
+    private static final String DEFAULT_BLACKLIST = "sebestyen";
+
+    public static Set<String> CONTACT_BLACKLIST = parseBlacklist(DEFAULT_BLACKLIST);
+
+    public static boolean isBlacklisted(PersonAPI person) {
+        if (person == null || CONTACT_BLACKLIST.isEmpty()) return false;
+        for (String entry : CONTACT_BLACKLIST) {
+            if (entry.equals(person.getId())) return true; // for ID
+            if (entry.equalsIgnoreCase(person.getNameString())) return true; // for Display Name (unstable)
+        }
+        return false;
+    }
+
+    private static Set<String> parseBlacklist(String raw) {
+        Set<String> result = new HashSet<String>();
+        if (raw == null) return result;
+        for (String entry : raw.split(",")) {
+            String t = entry.trim();
+            if (!t.isEmpty()) result.add(t);
+        }
+        return result;
+    }
+
+    public static void syncBlacklistKey(PersonAPI person) {
+        if (person == null) return;
+        if (isBlacklisted(person)) {
+            person.getMemoryWithoutUpdate().set("$eld_RCI_Blacklisted", true);
+        } else if (person.getMemoryWithoutUpdate().contains("$eld_RCI_Blacklisted")) {
+            person.getMemoryWithoutUpdate().unset("$eld_RCI_Blacklisted");
         }
     }
 

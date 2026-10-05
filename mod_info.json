@@ -2,8 +2,8 @@
   "id": "eld_rci", #Mod ID, should be lowercase
   "name": "Rising Contact Importance", #Display Name
   "author": "Eld", 
-  "utility": false,
-  "version": "1.0.4",
+  "utility": true,
+  "version": "1.1.0",
   "description": "Make it possible for your contacts to rise in importance as you complete their missions.",
   "gameVersion": "0.98a-RC8",
   "jars": [ "jars/Eld_RCI.jar" ],

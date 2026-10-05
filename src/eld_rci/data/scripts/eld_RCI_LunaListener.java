@@ -2,6 +2,7 @@ package eld_rci.data.scripts;
 
 import com.fs.starfarer.api.Global;
 import eld_rci.data.campaign.eld_RCI_Settings;
+import lunalib.lunaSettings.LunaSettings;
 import lunalib.lunaSettings.LunaSettingsListener;
 
 public class eld_RCI_LunaListener implements LunaSettingsListener {
@@ -16,6 +17,10 @@ public class eld_RCI_LunaListener implements LunaSettingsListener {
         eld_RCI_Settings.getSettings();
         if (Global.getSector() != null) {
             Global.getSector().getMemoryWithoutUpdate().set("$eld_RCI_favorEnabled", eld_RCI_Settings.FAVOR);
+        }
+
+        if (LunaSettings.getBoolean("eld_rci", "eld_RCI_Removal")) {
+            eld_RCI_CleanUp.removalCleanUp();
         }
     }
 

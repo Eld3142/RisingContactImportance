@@ -19,6 +19,7 @@ import com.fs.starfarer.api.util.Misc;
 import java.util.*;
 
 import static eld_rci.data.campaign.eld_RCI_Settings.FAVOR_COST;
+import static eld_rci.data.campaign.eld_RCI_Settings.isBlacklisted;
 import static eld_rci.data.scripts.eld_RCI_CleanUp.cleanMissionRefs;
 
 public class eld_RCI_SpendFavorDialog extends BaseCommandPlugin implements InteractionDialogPlugin {
@@ -60,6 +61,8 @@ public class eld_RCI_SpendFavorDialog extends BaseCommandPlugin implements Inter
 
         PersonAPI person = dialog.getInteractionTarget().getActivePerson();
         if (person == null) return false;
+
+        if (isBlacklisted(person)) return false;
 
         InteractionDialogPlugin plugin = dialog.getPlugin();
         eld_RCI_SpendFavorDialog menu = new eld_RCI_SpendFavorDialog(plugin, person, memoryMap);

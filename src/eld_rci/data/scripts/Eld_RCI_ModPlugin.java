@@ -11,6 +11,9 @@ import eld_rci.data.campaign.eld_RCI_Settings;
 import eld_rci.data.campaign.eld_RCI_UpImportanceIntel;
 import lunalib.lunaSettings.LunaSettings;
 
+import java.util.ArrayList;
+
+import static eld_rci.data.campaign.eld_RCI_Settings.*;
 import static eld_rci.data.scripts.eld_RCI_CleanUp.cleanMissionRefs;
 
 public class Eld_RCI_ModPlugin extends BaseModPlugin {
@@ -51,30 +54,42 @@ public class Eld_RCI_ModPlugin extends BaseModPlugin {
 //        }
 
 //        Use CampaignEventListener (unstable)
-        Global.getSector().addListener(new eld_RCI_MissionTracker());
-        Global.getSector().getMemoryWithoutUpdate().set("$eld_RCI_favorEnabled", eld_RCI_Settings.FAVOR);
+        boolean removal = Global.getSettings().getModManager().isModEnabled("lunalib")
+                && LunaSettings.getBoolean("eld_rci", "eld_RCI_Removal");
 
-        IntelManagerAPI intel = Global.getSector().getIntelManager();
-        for (IntelInfoPlugin intelPlugin : intel.getIntel(ContactIntel.class)) {
-            ContactIntel contact = (ContactIntel) intelPlugin;
-            ContactIntel.ContactState state = contact.getState();
+        if (removal) {
+            eld_RCI_CleanUp.removalCleanUp();
+        } else {
+            Global.getSector().addTransientListener(new eld_RCI_MissionTracker());
+            Global.getSector().getMemoryWithoutUpdate().set("$eld_RCI_favorEnabled", eld_RCI_Settings.FAVOR);
 
-            if (state != ContactIntel.ContactState.NON_PRIORITY
-                    && state != ContactIntel.ContactState.PRIORITY) continue;
-            PersonAPI person = contact.getPerson();
-            if (person == null) continue;
+            IntelManagerAPI intel = Global.getSector().getIntelManager();
+            for (IntelInfoPlugin intelPlugin : new ArrayList<IntelInfoPlugin>(intel.getIntel(ContactIntel.class))) {
+                ContactIntel contact = (ContactIntel) intelPlugin;
+                ContactIntel.ContactState state = contact.getState();
 
-            cleanMissionRefs(person);
+                if (state != ContactIntel.ContactState.NON_PRIORITY
+                        && state != ContactIntel.ContactState.PRIORITY) continue;
+                PersonAPI person = contact.getPerson();
+                if (person == null) continue;
 
-            boolean exists = false;
-            for (IntelInfoPlugin old : intel.getIntel(eld_RCI_UpImportanceIntel.class)) {
-                if (old instanceof eld_RCI_UpImportanceIntel
-                        && ((eld_RCI_UpImportanceIntel) old).getPerson() == person) {
-                    exists = true; break;
+                syncBlacklistKey(person);
+                if (isBlacklisted(person)) {
+                    continue;
                 }
-            }
-            if (!exists) {
-                intel.addIntel(new eld_RCI_UpImportanceIntel(person));
+
+                cleanMissionRefs(person);
+
+                boolean exists = false;
+                for (IntelInfoPlugin old : intel.getIntel(eld_RCI_UpImportanceIntel.class)) {
+                    if (old instanceof eld_RCI_UpImportanceIntel
+                            && ((eld_RCI_UpImportanceIntel) old).getPerson() == person) {
+                        exists = true; break;
+                    }
+                }
+                if (!exists) {
+                    intel.addIntel(new eld_RCI_UpImportanceIntel(person));
+                }
             }
         }
 
