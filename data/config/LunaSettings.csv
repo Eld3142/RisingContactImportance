@@ -32,6 +32,8 @@ Example: sebestyen, arroyo",,,Blacklist & Removal
 ,,,,,,,,
 eld_RCI_Removal_Header,Removal,Header,Removal,,,,,Blacklist & Removal
 eld_RCI_Removal,Remove This Mod Safely,Boolean,False,,"You must load the save first -> Open LunaSettings (usually F3) -> Set this to True (if already True, set to False first then True again) then save the setting -> Save your game and Quit -> Remove this mod -> You can load that save again without this mod enabled. 
+You can also set this to True in main menu mod setting -> Load your save -> Save and quit -> Remove/disable this mod -> Then you can play your save without this mod.
 
-Do this before removing this mod mid-save. Will clean up everything by this mod, so don't expect it to work properly even if you set it to false again in the same save.",,,Blacklist & Removal
+Do this before removing this mod mid-save. Will clean up everything by this mod, so don't expect it to work properly even if you set it to false again in the same save.
+If you want this mod features again, don't forget to set it to False, otherwise nothing will work properly.",,,Blacklist & Removal
 ,,,,,,,,
